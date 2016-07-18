@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1468819353.568925
+_modified_time = 1468819651.815966
 _enable_loop = True
 _template_filename = 'templates/book.tmpl'
 _template_uri = 'book.tmpl'
@@ -23,11 +23,11 @@ def _mako_generate_namespaces(context):
     ns = runtime.TemplateNamespace('pheader', context._clean_inheritance_tokens(), templateuri='post_header.tmpl', callables=None,  calling_uri=_template_uri)
     context.namespaces[(__name__, 'pheader')] = ns
 
-    ns = runtime.TemplateNamespace('helper', context._clean_inheritance_tokens(), templateuri='post_helper.tmpl', callables=None,  calling_uri=_template_uri)
-    context.namespaces[(__name__, 'helper')] = ns
-
     ns = runtime.TemplateNamespace('comments', context._clean_inheritance_tokens(), templateuri='comments_helper.tmpl', callables=None,  calling_uri=_template_uri)
     context.namespaces[(__name__, 'comments')] = ns
+
+    ns = runtime.TemplateNamespace('helper', context._clean_inheritance_tokens(), templateuri='post_helper.tmpl', callables=None,  calling_uri=_template_uri)
+    context.namespaces[(__name__, 'helper')] = ns
 
 def _mako_inherit(template, context):
     _mako_generate_namespaces(context)
@@ -36,6 +36,7 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
+        parent = context.get('parent', UNDEFINED)
         post = context.get('post', UNDEFINED)
         def extra_js():
             return render_extra_js(context._locals(__M_locals))
@@ -43,7 +44,6 @@ def render_body(context,**pageargs):
             return render_content(context._locals(__M_locals))
         def extra_head():
             return render_extra_head(context._locals(__M_locals))
-        parent = context.get('parent', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n')
         __M_writer('\n')
@@ -101,9 +101,9 @@ def render_content(context,**pageargs):
 def render_extra_head(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
+        parent = context.get('parent', UNDEFINED)
         def extra_head():
             return render_extra_head(context)
-        parent = context.get('parent', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n    ')
         __M_writer(str(parent.extra_head()))
@@ -115,6 +115,6 @@ def render_extra_head(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"source_encoding": "utf-8", "line_map": {"66": 117, "72": 92, "78": 92, "84": 79, "23": 3, "26": 2, "91": 79, "92": 84, "93": 84, "94": 85, "95": 85, "35": 0, "101": 7, "108": 7, "109": 8, "110": 8, "29": 4, "48": 2, "49": 3, "50": 4, "51": 5, "116": 110, "56": 77, "61": 90}, "filename": "templates/book.tmpl", "uri": "book.tmpl"}
+{"filename": "templates/book.tmpl", "source_encoding": "utf-8", "uri": "book.tmpl", "line_map": {"66": 117, "72": 92, "78": 92, "84": 79, "23": 3, "26": 4, "91": 79, "92": 84, "93": 84, "94": 85, "95": 85, "35": 0, "101": 7, "108": 7, "109": 8, "110": 8, "29": 2, "48": 2, "49": 3, "50": 4, "51": 5, "116": 110, "56": 77, "61": 90}}
 __M_END_METADATA
 """

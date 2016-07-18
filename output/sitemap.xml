@@ -19,19 +19,7 @@
  </url>
  <url>
   <loc>https://lukewrites.github.io/archive.html</loc>
-  <lastmod>2016-07-18T05:11:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/authors/</loc>
-  <lastmod>2016-07-18T05:22:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/authors/luke-petschauer/</loc>
-  <lastmod>2016-07-18T05:22:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/authors/roberto-alsina/</loc>
-  <lastmod>2016-07-18T05:22:00Z</lastmod>
+  <lastmod>2016-07-18T05:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/</loc>
@@ -87,7 +75,7 @@
  </url>
  <url>
   <loc>https://lukewrites.github.io/listings/hello.py.html</loc>
-  <lastmod>2016-07-18T05:11:00Z</lastmod>
+  <lastmod>2016-07-18T05:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/</loc>
