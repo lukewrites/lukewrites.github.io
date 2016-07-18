@@ -1,0 +1,53 @@
+<p>In this week's installment of my Coursera class on Algorithms, we've been introduced to "greedy" algorithms. One of the homework requires us to solve a tried and tested greedy problem: determining the least number of coins needed to change money.</p>
+<p>My first answer to this question wasn't actually a greedy algorithm…but it was only one line:</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="nf">get_change</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">((</span><span class="n">num</span> <span class="o">-</span> <span class="p">(</span><span class="n">num</span> <span class="o">%</span> <span class="mi">5</span><span class="p">))</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">//</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">num</span> <span class="o">-</span> <span class="p">(</span><span class="n">num</span> <span class="o">%</span> <span class="mi">10</span><span class="p">))</span> <span class="o">//</span> <span class="mi">10</span><span class="p">)</span>
+</pre>
+
+
+<p>Which adds up the constituent ones, fives, and tens of the number. While this code passed all the tests, it is neither readable nor greedy. So, back to the drawing board.</p>
+<p>Next, I wrote a function that took two variables: the amount (<code>num</code>) and number of coins (<code>coins</code>):</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="nf">get_change</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">coins</span><span class="p">):</span>
+
+    <span class="k">while</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">-=</span> <span class="mi">10</span>
+            <span class="n">coins</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">get_change</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">coins</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">-=</span> <span class="mi">5</span>
+            <span class="n">coins</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">get_change</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">coins</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">coins</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">get_change</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">coins</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">coins</span>
+</pre>
+
+
+<p>Hey, some recursion! The program keeps calling itself, stating the amount of money (<code>m</code>) remaining and the number of coins each time. This also wound up being about twice as fast as my first version of the code: in the online grader, the first version of the code took .04 seconds, while the second iteration took just .02 seconds. Pretty good!</p>
+<p>That's fine, but I wanted to see if I could do it without that second variable. And whaddayaknow, I could.</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="nf">get_change</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+
+    <span class="n">coins</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">-=</span> <span class="mi">10</span>
+            <span class="n">coins</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">-=</span> <span class="mi">5</span>
+            <span class="n">coins</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">coins</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">coins</span>
+</pre>
+
+
+<p>That just seems much cleaner and more readable, doesn't it? In the online grader this third iteration ran slightly more efficiently, using 4 MB less memory than the second iteration taking the same amount of time.</p>
+<h3>What I Would Do Next</h3>
+<p>Next steps for the above? If I were to come back to this assignment, I'd work to make the code reusable. Right now it is built to work with pennies, nickels, and dimes. It would be an idea to allow the user to enter an amount and a list of coin values that could be used to determine how many coins are needed to make change.</p>
