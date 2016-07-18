@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<base href="https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/">
+<meta name="description" content="How to do chained lookups in Django on a pre-populated database table of geographic information.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chained geography lookups in Django with django-smart-selects and django-cities-light | Luke Petschauer on github</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<meta content="#5670d4" name="theme-color">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="description" itemprop="description" content="How to do chained lookups in Django on a pre-populated database table of geographic information.">
+<meta name="author" content="Luke Petschauer">
+<link rel="prev" href="../using-django-smart-selects-and-django-cities-light-for-chained-geography-lookups-in-a-django-form/" title="Using `django-smart-selects` and `django-cities-light` for chained geography lookups in a Django form" type="text/html">
+<link rel="next" href="../greedy-algorithms-making-change/" title="Greedy Algorithms: Making Change" type="text/html">
+<meta property="og:site_name" content="Luke Petschauer on github">
+<meta property="og:title" content="Chained geography lookups in Django with django-smart-selects and djan">
+<meta property="og:url" content="https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/">
+<meta property="og:description" content="How to do chained lookups in Django on a pre-populated database table of geographic information.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-07-05T17:03:13-07:00">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-inverse navbar-static-top"><div class="container">
+<!-- This keeps the margins nice -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://lukewrites.github.io/">
+
+                <span id="blog-title">Luke Petschauer on github</span>
+            </a>
+        </div>
+<!-- /.navbar-header -->
+        <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
+            <ul class="nav navbar-nav">
+<li>
+<a href="../../archive.html">Archive</a>
+                </li>
+<li>
+<a href="../../categories/">Tags</a>
+                </li>
+<li>
+<a href="../../rss.xml">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="index.md" id="sourcelink">Source</a>
+    </li>
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        <div class="row">
+            
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Chained geography lookups in Django with django-smart-selects and django-cities-light</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">
+                    <a href="../../authors/luke-petschauer/">Luke Petschauer</a>
+            </span></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2016-07-05T17:03:13-07:00" itemprop="datePublished" title="2016-07-05 17:03">2016-07-05 17:03</time></a></p>
+            
+        <p class="sourceline"><a href="index.md" id="sourcelink">Source</a></p>
+
+                <meta name="description" itemprop="description" content="How to do chained lookups in Django on a pre-populated database table of geographic information.">
+</div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>Over the past months I've been working in my spare time on a Django based website, <a href="http://www.allTEFL.com">allTEFL</a>, a sort of Glassdoor site for TEFL teachers. This was the project that first made me want to learn to program, and it is hugely exciting to see it come to life.</p>
+<p>This is the first in a series of posts in which I'll describe how I designed and organized the site, then talk about some of the fun coding challenges I came across as I worked on it.</p>
+<p>First we'll walk through some simple user stories, then talk about how use case scenarios affected how I created my models.</p>
+<h4>User Stories</h4>
+<p>At first, I figured that there would basically be three things that would happen:</p>
+<ol>
+<li>A <code>Teacher</code> creates an account so she can review a school (<code>school_review</code>) or a recruiter (<code>recruiter_review</code>).</li>
+<li>A <code>Teacher</code> adds a <code>school_review</code> to the database. This is publicly viewable as an anonymous post on the <code>School</code>'s page.</li>
+<li>Specific data from the <code>school_review</code> (school name, dates of employment) is visible in the <code>Teacher</code>'s  <code>resume_view</code>.</li>
+</ol>
+<h4>Putting the Parts Together</h4>
+<p>Creating a <code>Teacher</code> model was easy; use Django's <code>auth.User</code> model. The <code>School</code> model has proven to be much more interesting.</p>
+<h4>The <code>School</code>
+</h4>
+<p>A <code>Teacher</code> has a one-to-many relationship with <code>School</code>s that she's taught at and reviewed.</p>
+<p>First, a complication: there is no complete list of all the English schools or TEFL recruiters in China. Thus, (2) above has a problem: the <code>Teacher</code>'s <code>School</code> may not exist in the database. So let's revise my user stories:</p>
+<ol>
+<li>A <code>Teacher</code> adds a <code>school_review</code> for a <code>School</code> in the database.</li>
+<li>If the <code>School</code> is not in the database already, the <code>Teacher</code> adds it before reviewing it.</li>
+</ol>
+<p>Cool. But as it turns out, doing this is a bit harder than it seemed at first glance.</p>
+<p>Letting a user add <code>School</code>s to the database is problematic because we don't want data to be fragmented. (One teacher might enter <code>Beijing High School</code>, but another teacher from the same school might look for <code>BHS</code> and then create a new instance of the <code>School</code> model.) So it's important to make finding your school's name as streamlined and precise as possible, reducing peoples' temptation to not look and just add a new school.</p>
+<p>We could just add schools by name, but this is problematic because <code>School</code>s may well share names. For example, there are a number of chain schools, similar to test prep behemoths Kaplan or Princeton Review in the US. We want to make sure Wall Street English in Wudaokou, Beijing is distinguishable from WSE in Zhongguancun, Beijing. Also, users will doubtless want to look up schools by location So, just having a list of schools organized by name is not an appropriate way to organize the db.</p>
+<h3>Chained Selects in Django</h3>
+<p>So, how about a <strong>chained lookup</strong> in our form. A chained lookup means finding all Y that belong to X. This will allow us to select schools (and enter them into the database) based on location. The user can select a <code>Province</code>, which brings up a list of all its <code>City</code>. After selecting the <code>City</code>, you can either (a) select your <code>School</code> or (b) <code>add_school</code> to the database if necessary.</p>
+<blockquote>
+<p>Country -&gt; Province List -&gt; City List -&gt; Schools<br>
+e.g.<br><code>China -&gt; Jilin -&gt; Changchun -&gt; Sino-American Denver Foreign Language School</code></p>
+</blockquote>
+<p>But to do this, I need a list of all the provinces (and their constituent cities) in a given country. That sounds like quite a bit of work to do by hand…so surely someone's automated it, right?</p>
+<p>There are two Django packages that can be combined to (a) populate tables with country, province/state, and city data, and (b) make it easy to build geographic chained selections: <a href="https://github.com/yourlabs/django-cities-light">django-cities-light</a> and <a href="https://github.com/digi604/django-smart-selects">django-smart-selects</a>. Below I will show you how to use the two together to create your own forms in Django that automatically whittle down information from the database to</p>
+<p>For my use case it's been necessary to make custom models so I can have views for city, region, and city. Because of this, I need to use the abstract models included in <code>cities_light</code>.</p>
+<pre class="code literal-block"><span></span><span class="c1">#models.py</span>
+
+<span class="kn">from</span> <span class="nn">cities_light.abstract_models</span> <span class="kn">import</span> <span class="n">AbstractCountry</span><span class="p">,</span> <span class="n">AbstractRegion</span><span class="p">,</span> <span class="n">AbstractCity</span>
+</pre>
+
+
+<p>These are our necessary imports. First, we are using the generic models from <code>django-cities-light</code>: <code>Country</code>, <code>Region</code>, and <code>City</code>.</p>
+<p><strong>IMPORTANT</strong> There is <a href="https://github.com/yourlabs/django-cities-light/issues/89">a known bug in <code>django-cities-light</code>'s abstract models</a> that requires you to declare your models in the same order that you imported the <code>Abstract</code> models.</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">cities_light.abstract_models</span> <span class="kn">import</span> <span class="n">AbstractCountry</span><span class="p">,</span> <span class="n">AbstractRegion</span><span class="p">,</span> <span class="n">AbstractCity</span>
+<span class="kn">from</span> <span class="nn">cities_light.receivers</span> <span class="kn">import</span> <span class="n">connect_default_signals</span>
+
+
+<span class="c1">#models.py</span>
+
+<span class="k">class</span> <span class="nc">Country</span><span class="p">(</span><span class="n">AbstractCountry</span><span class="p">):</span>
+
+    <span class="k">pass</span>
+<span class="n">connect_default_signals</span><span class="p">(</span><span class="n">Country</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Region</span><span class="p">(</span><span class="n">AbstractRegion</span><span class="p">):</span>
+
+    <span class="k">pass</span>
+<span class="n">connect_default_signals</span><span class="p">(</span><span class="n">Region</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">City</span><span class="p">(</span><span class="n">AbstractCity</span><span class="p">):</span>
+
+    <span class="k">pass</span>
+<span class="n">connect_default_signals</span><span class="p">(</span><span class="n">City</span><span class="p">)</span>
+</pre>
+
+
+<p>We need to register our custom models in the site's <code>settings.py</code>:</p>
+<pre class="code literal-block"><span></span><span class="c1"># settings.py</span>
+
+<span class="n">CITIES_LIGHT_TRANSLATION_LANGUAGES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'zh'</span><span class="p">,</span> <span class="s1">'en'</span><span class="p">]</span> <span class="c1"># I want to include both Chinese &amp; English names</span>
+<span class="n">CITIES_LIGHT_INCLUDE_COUNTRIES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'CN'</span><span class="p">]</span> <span class="c1"># Download geographic information for China.</span>
+<span class="n">CITIES_LIGHT_APP_NAME</span> <span class="o">=</span> <span class="s1">'app_name'</span> <span class="c1"># Let the app know that I have custom models, defined in this app.</span>
+</pre>
+
+
+<p>From the terminal we now need to run <code>./manage.py cities_light</code> to populate the tables. Three tables will be created: <code>country</code>, <code>region</code>, and <code>city</code>. The tables have a bunch of columns in them. The most important are:</p>
+<p><code>country</code></p>
+<table>
+<thead><tr>
+<th align="center">id</th>
+<th align="center">name_ascii</th>
+<th align="center">slug</th>
+</tr></thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">China</td>
+<td align="center">china</td>
+</tr></tbody>
+</table>
+<p><code>region</code></p>
+<table>
+<thead><tr>
+<th>Header One</th>
+<th>Header Two</th>
+</tr></thead>
+<tbody><tr>
+<td>Item One</td>
+<td>Item Two</td>
+</tr></tbody>
+</table>
+<table>
+<thead><tr>
+<th align="center">id</th>
+<th align="center">name_ascii</th>
+<th align="center">slug</th>
+<th align="center">display_name</th>
+<th align="center">country_id</th>
+</tr></thead>
+<tbody><tr>
+<td align="center">2</td>
+<td align="center">Qinghai</td>
+<td align="center">qinghai</td>
+<td align="center">Qinghai, China</td>
+<td align="center">Foreign Key</td>
+</tr></tbody>
+</table>
+<p>Worth noting that this model has a foreign key, <code>country_id</code>, that associates with a <code>country</code>.</p>
+<p><code>city</code></p>
+<table>
+<thead><tr>
+<th align="center">id</th>
+<th align="center">name_ascii</th>
+<th align="center">slug</th>
+<th align="center">display_name</th>
+<th align="center">country_id</th>
+<th align="center">region_id</th>
+</tr></thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">Rikaze</td>
+<td align="center">rikaze</td>
+<td align="center">Rikaze, Tibet Autonomous Region, China</td>
+<td align="center">ForeignKey(country_id)</td>
+<td align="center">ForeignKey(region_id)</td>
+</tr></tbody>
+</table>
+<p>Two foreign keys here - <code>country_id</code> and <code>region_id</code>.</p>
+<p>The tables include multiple versions of the location's name. I've found <code>name_ascii</code> and <code>display_name</code> to be the two most useful. THe latter includes province and country.</p>
+<h4>Linking to City/Province/Country views</h4>
+<p>Our existing models are nice, but I want to be able to link to views for each of these models. This means writing a <code>get_absolute_url</code> function for them in my models, adding URL patterns to <code>urls.py</code>, and adding views for each.</p>
+<pre class="code literal-block"><span></span>    <span class="c1"># models.py</span>
+    <span class="k">class</span> <span class="nc">Country</span><span class="p">(</span><span class="n">AbstractCountry</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">'country_school_list'</span><span class="p">,</span>
+                           <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">'country_slug'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">})</span>
+
+    <span class="n">connect_default_signals</span><span class="p">(</span><span class="n">Country</span><span class="p">)</span>
+
+
+    <span class="k">class</span> <span class="nc">Region</span><span class="p">(</span><span class="n">AbstractRegion</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">'province_school_list'</span><span class="p">,</span>
+                           <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">'country_slug'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span>
+                                   <span class="s1">'province_slug'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">})</span>
+
+    <span class="n">connect_default_signals</span><span class="p">(</span><span class="n">Region</span><span class="p">)</span>
+
+
+    <span class="k">class</span> <span class="nc">City</span><span class="p">(</span><span class="n">AbstractCity</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">'city_school_list'</span><span class="p">,</span>
+                           <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">'country_slug'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span>
+                                   <span class="s1">'province_slug'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span>
+                                   <span class="s1">'city_slug'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">})</span>
+
+    <span class="n">connect_default_signals</span><span class="p">(</span><span class="n">City</span><span class="p">)</span>
+
+
+    <span class="c1"># urls.py</span>
+
+        <span class="n">url</span><span class="p">(</span><span class="s1">r'^schools/(?P&lt;country_slug&gt;[\w-]+)/$'</span><span class="p">,</span>
+            <span class="n">CountrySchoolList</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">'country_school_list'</span><span class="p">),</span>
+        <span class="n">url</span><span class="p">(</span><span class="s1">r'^schools/(?P&lt;country_slug&gt;[\w-]+)/(?P&lt;province_slug&gt;[\w-]+)/$'</span><span class="p">,</span>
+            <span class="n">ProvinceSchoolList</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">'province_school_list'</span><span class="p">),</span>
+        <span class="n">url</span><span class="p">(</span><span class="s1">r'^schools/(?P&lt;country_slug&gt;[\w-]+)/(?P&lt;province_slug&gt;[\w-]+)/(?P&lt;city_slug&gt;[\w-]+)/$'</span><span class="p">,</span>
+            <span class="n">CitySchoolList</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">'city_school_list'</span><span class="p">),</span>
+
+
+    <span class="c1"># views.py</span>
+
+    <span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">ListView</span><span class="p">,</span> <span class="n">DetailView</span><span class="p">,</span> <span class="n">CreateView</span>
+    <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">School</span><span class="p">,</span> <span class="n">Country</span><span class="p">,</span> <span class="n">Region</span><span class="p">,</span> <span class="n">City</span>
+
+
+    <span class="k">class</span> <span class="nc">CountrySchoolList</span><span class="p">(</span><span class="n">ListView</span><span class="p">):</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">School</span>
+        <span class="n">template_name</span> <span class="o">=</span> <span class="s2">"school_reviews/school_list.html"</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'school_province'</span><span class="p">,</span> <span class="s1">'school_city'</span><span class="p">,</span> <span class="s1">'school_name'</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">country</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Country</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'country_slug'</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">School</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">school_country</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">country</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">CountrySchoolList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">'section'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'country'</span>
+            <span class="k">return</span> <span class="n">context</span>
+
+
+    <span class="k">class</span> <span class="nc">ProvinceSchoolList</span><span class="p">(</span><span class="n">ListView</span><span class="p">):</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">School</span>
+        <span class="n">template_name</span> <span class="o">=</span> <span class="s2">"school_reviews/school_list.html"</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'school_city'</span><span class="p">,</span> <span class="s1">'school_name'</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">country</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Country</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'country_slug'</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">province</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Region</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'province_slug'</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">School</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">school_country</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">country</span><span class="p">,</span>
+                                         <span class="n">school_province</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">province</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProvinceSchoolList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">'section'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'province'</span>
+            <span class="k">return</span> <span class="n">context</span>
+
+
+    <span class="k">class</span> <span class="nc">CitySchoolList</span><span class="p">(</span><span class="n">ListView</span><span class="p">):</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">School</span>
+        <span class="n">template_name</span> <span class="o">=</span> <span class="s2">"school_reviews/school_list.html"</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'school_name'</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">places</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">country</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Country</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'country_slug'</span><span class="p">])</span>
+            <span class="n">province</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Region</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'province_slug'</span><span class="p">])</span>
+            <span class="n">city</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">City</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'city_slug'</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">country</span><span class="p">,</span> <span class="n">province</span><span class="p">,</span> <span class="n">city</span>
+
+        <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">country</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Country</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'country_slug'</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">province</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Region</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'province_slug'</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">city</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">City</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'city_slug'</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">School</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">school_country</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">country</span><span class="p">,</span>
+                                         <span class="n">school_province</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">province</span><span class="p">,</span>
+                                         <span class="n">school_city</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">city</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">CitySchoolList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">'section'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'city'</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">'country'</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Country</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'country_slug'</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">context</span>
+</pre>
+
+
+<p>The last thing we need to do is write</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../using-django-smart-selects-and-django-cities-light-for-chained-geography-lookups-in-a-django-form/" rel="prev" title="Using `django-smart-selects` and `django-cities-light` for chained geography lookups in a Django form">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../greedy-algorithms-making-change/" rel="next" title="Greedy Algorithms: Making Change">Next post</a>
+            </li>
+        </ul></nav></aside></article>
+</div>
+        <!--End of body content-->
+
+        <footer id="footer">
+            Contents © 2016         <a href="mailto:luke.petschauer@me.com">Luke Petschauer</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+            <script src="../../assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>
