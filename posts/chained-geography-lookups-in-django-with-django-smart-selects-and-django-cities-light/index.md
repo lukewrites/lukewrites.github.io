@@ -248,4 +248,5 @@ Our existing models are nice, but I want to be able to link to views for each of
 
 ```
 
-The last thing we need to do is write
+##Smart Selects
+The last thing we need to do is write code to 
