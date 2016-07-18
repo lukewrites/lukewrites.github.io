@@ -1,0 +1,11 @@
+<p>In re-writing my site [ForeignTeacherPay](<a class="reference external" href="http://foreignteacherpay.com/">http://foreignteacherpay.com/</a>) in Django, I came across the problem of how to allow users to see schools listed by country, province, and city in China. FTP is a review site, so the ability to find and add schools by location is very important.</p>
+<p>There is not a (published) list of all schools in China that hire foreign teachers, so users have to be able to add schools. In order to prevent duplicate schools listings,</p>
+<p>In this post I will show you how to use <cite>django-smart-selects</cite> and <cite>django-cities-light</cite> together to prepopulate your database with geographic information (Country, Province/State, City), and then do chained selects in a Django model form.</p>
+<ol class="arabic simple">
+<li>Django and related packages</li>
+</ol>
+<p>The two packages we will use in this tutorial are [<cite>django-smart-selects</cite>]() and [<cite>django-cities-light</cite>](). Install both using pip:</p>
+<p><tt class="docutils literal">`bash
+pip install <span class="pre">-U</span> <span class="pre">django-smart-selects</span>
+pip install <span class="pre">-U</span> <span class="pre">django-cities-light</span>
+`</tt></p>
