@@ -7,178 +7,162 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://lukewrites.github.io/</loc>
-  <lastmod>2016-07-01T19:23:00Z</lastmod>
+  <lastmod>2016-07-18T05:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/2012/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/2016/</loc>
-  <lastmod>2016-07-01T19:23:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/archive.html</loc>
-  <lastmod>2016-07-18T00:56:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/authors/</loc>
-  <lastmod>2016-07-06T00:01:00Z</lastmod>
+  <lastmod>2016-07-18T05:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/authors/luke-petschauer/</loc>
-  <lastmod>2016-07-01T19:23:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/authors/luke/</loc>
-  <lastmod>2016-07-06T00:01:00Z</lastmod>
+  <lastmod>2016-07-18T05:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/authors/roberto-alsina/</loc>
-  <lastmod>2016-07-01T19:23:00Z</lastmod>
+  <lastmod>2016-07-18T05:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/</loc>
-  <lastmod>2016-07-18T04:54:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/categories/algorithms/</loc>
-  <lastmod>2016-07-18T00:56:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/categories/alltefl/</loc>
-  <lastmod>2016-07-06T06:03:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/blog/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/cat_algorithms/</loc>
-  <lastmod>2016-07-18T04:54:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/cat_django/</loc>
-  <lastmod>2016-07-01T19:23:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/cat_nikola/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/categories/data-structures/</loc>
-  <lastmod>2016-07-18T00:56:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/demo/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/django/</loc>
-  <lastmod>2016-07-01T19:23:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/nikola/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/python/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/galleries/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/galleries/demo/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/listings/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/listings/__pycache__/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/listings/hello.py.html</loc>
-  <lastmod>2016-07-01T19:23:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/</loc>
-  <lastmod>2016-07-06T06:03:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/greedy-algorithms-making-change/</loc>
-  <lastmod>2016-07-18T00:56:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/using-django-smart-selects-and-django-cities-light-for-chained-geography-lookups-in-a-django-form/</loc>
-  <lastmod>2016-07-01T19:23:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/welcome-to-nikola/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/about-nikola/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/bootstrap-demo/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/charts/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/creating-a-theme/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/dr-nikolas-vendetta/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/extending/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/handbook/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/internals/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/listings-demo/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/path-handlers/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/quickref/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/quickstart/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/slides-demo/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/social_buttons/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/theming/</loc>
-  <lastmod>2016-04-23T22:21:00Z</lastmod>
+  <lastmod>2016-07-18T05:11:00Z</lastmod>
  </url>
 </urlset>

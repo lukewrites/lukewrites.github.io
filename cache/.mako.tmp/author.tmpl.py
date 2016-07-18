@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1468818591.484167
+_modified_time = 1468819353.471642
 _enable_loop = True
 _template_filename = '/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/nikola/data/themes/base/templates/author.tmpl'
 _template_uri = 'author.tmpl'
@@ -28,23 +28,23 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        title = context.get('title', UNDEFINED)
-        translations = context.get('translations', UNDEFINED)
-        posts = context.get('posts', UNDEFINED)
-        date_format = context.get('date_format', UNDEFINED)
-        generate_rss = context.get('generate_rss', UNDEFINED)
-        def content():
-            return render_content(context._locals(__M_locals))
-        author = context.get('author', UNDEFINED)
-        parent = context.get('parent', UNDEFINED)
+        sorted = context.get('sorted', UNDEFINED)
         _link = context.get('_link', UNDEFINED)
         kind = context.get('kind', UNDEFINED)
-        description = context.get('description', UNDEFINED)
-        sorted = context.get('sorted', UNDEFINED)
-        messages = context.get('messages', UNDEFINED)
-        len = context.get('len', UNDEFINED)
+        generate_rss = context.get('generate_rss', UNDEFINED)
         def extra_head():
             return render_extra_head(context._locals(__M_locals))
+        len = context.get('len', UNDEFINED)
+        parent = context.get('parent', UNDEFINED)
+        description = context.get('description', UNDEFINED)
+        author = context.get('author', UNDEFINED)
+        def content():
+            return render_content(context._locals(__M_locals))
+        messages = context.get('messages', UNDEFINED)
+        translations = context.get('translations', UNDEFINED)
+        title = context.get('title', UNDEFINED)
+        date_format = context.get('date_format', UNDEFINED)
+        posts = context.get('posts', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'extra_head'):
@@ -65,20 +65,20 @@ def render_body(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        title = context.get('title', UNDEFINED)
-        translations = context.get('translations', UNDEFINED)
-        posts = context.get('posts', UNDEFINED)
-        date_format = context.get('date_format', UNDEFINED)
+        sorted = context.get('sorted', UNDEFINED)
+        _link = context.get('_link', UNDEFINED)
+        kind = context.get('kind', UNDEFINED)
         generate_rss = context.get('generate_rss', UNDEFINED)
+        len = context.get('len', UNDEFINED)
         author = context.get('author', UNDEFINED)
         def content():
             return render_content(context)
-        kind = context.get('kind', UNDEFINED)
-        description = context.get('description', UNDEFINED)
-        sorted = context.get('sorted', UNDEFINED)
         messages = context.get('messages', UNDEFINED)
-        len = context.get('len', UNDEFINED)
-        _link = context.get('_link', UNDEFINED)
+        description = context.get('description', UNDEFINED)
+        title = context.get('title', UNDEFINED)
+        translations = context.get('translations', UNDEFINED)
+        date_format = context.get('date_format', UNDEFINED)
+        posts = context.get('posts', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n<article class="authorpage">\n    <header>\n        <h1>')
         __M_writer(filters.html_escape(str(title)))
@@ -130,16 +130,16 @@ def render_content(context,**pageargs):
 def render_extra_head(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        translations = context.get('translations', UNDEFINED)
-        generate_rss = context.get('generate_rss', UNDEFINED)
-        author = context.get('author', UNDEFINED)
-        parent = context.get('parent', UNDEFINED)
+        sorted = context.get('sorted', UNDEFINED)
         _link = context.get('_link', UNDEFINED)
         kind = context.get('kind', UNDEFINED)
-        sorted = context.get('sorted', UNDEFINED)
-        len = context.get('len', UNDEFINED)
+        generate_rss = context.get('generate_rss', UNDEFINED)
         def extra_head():
             return render_extra_head(context)
+        len = context.get('len', UNDEFINED)
+        parent = context.get('parent', UNDEFINED)
+        author = context.get('author', UNDEFINED)
+        translations = context.get('translations', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n    ')
         __M_writer(str(parent.extra_head()))
@@ -170,6 +170,6 @@ def render_extra_head(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"line_map": {"130": 4, "144": 4, "145": 5, "146": 5, "147": 6, "148": 7, "149": 8, "150": 8, "151": 8, "152": 8, "153": 8, "154": 8, "27": 0, "156": 8, "157": 8, "158": 10, "159": 11, "160": 11, "161": 11, "162": 11, "155": 8, "164": 11, "163": 11, "171": 165, "49": 2, "54": 13, "59": 43, "65": 16, "83": 16, "84": 19, "85": 19, "86": 20, "87": 21, "88": 21, "89": 21, "90": 23, "91": 24, "92": 25, "93": 26, "94": 27, "95": 27, "96": 27, "97": 27, "98": 27, "99": 27, "100": 27, "101": 27, "102": 30, "103": 31, "104": 31, "105": 31, "106": 31, "107": 31, "108": 33, "109": 35, "110": 36, "111": 37, "112": 38, "113": 38, "114": 38, "115": 38, "116": 38, "117": 38, "118": 38, "119": 38, "120": 38, "121": 38, "122": 38, "123": 40, "124": 42, "165": 11}, "filename": "/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/nikola/data/themes/base/templates/author.tmpl", "source_encoding": "utf-8", "uri": "author.tmpl"}
+{"source_encoding": "utf-8", "line_map": {"130": 4, "144": 4, "145": 5, "146": 5, "147": 6, "148": 7, "149": 8, "150": 8, "151": 8, "152": 8, "153": 8, "154": 8, "27": 0, "156": 8, "157": 8, "158": 10, "159": 11, "160": 11, "161": 11, "162": 11, "155": 8, "164": 11, "163": 11, "171": 165, "49": 2, "54": 13, "59": 43, "65": 16, "83": 16, "84": 19, "85": 19, "86": 20, "87": 21, "88": 21, "89": 21, "90": 23, "91": 24, "92": 25, "93": 26, "94": 27, "95": 27, "96": 27, "97": 27, "98": 27, "99": 27, "100": 27, "101": 27, "102": 30, "103": 31, "104": 31, "105": 31, "106": 31, "107": 31, "108": 33, "109": 35, "110": 36, "111": 37, "112": 38, "113": 38, "114": 38, "115": 38, "116": 38, "117": 38, "118": 38, "119": 38, "120": 38, "121": 38, "122": 38, "123": 40, "124": 42, "165": 11}, "filename": "/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/nikola/data/themes/base/templates/author.tmpl", "uri": "author.tmpl"}
 __M_END_METADATA
 """
