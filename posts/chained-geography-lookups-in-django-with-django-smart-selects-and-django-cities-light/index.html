@@ -339,7 +339,40 @@ e.g.<br><code>China -&gt; Jilin -&gt; Changchun -&gt; Sino-American Denver Forei
 
 
 <h3>Smart Selects</h3>
-<p>The last thing we need to do is write code to </p>
+<p>The last thing we need to do is write our models incorporating the <code>ChainedForeignKey</code> that <code>django-smart-selects</code> provides. Keep in mind that the <code>chained_field</code> is the name in <em>your</em> model, while the <code>chained_model_field</code> is the name in your <em>database</em>. My names aren't the same since I used <code>django-cities-light</code> to populate the db.</p>
+<pre class="code literal-block"><span></span><span class="c1"># models.py</span>
+<span class="k">class</span> <span class="nc">School</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="n">school_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">school_country</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Country</span><span class="p">)</span>
+    <span class="n">school_province</span> <span class="o">=</span> <span class="n">ChainedForeignKey</span><span class="p">(</span>
+        <span class="n">Region</span><span class="p">,</span>
+        <span class="n">chained_field</span><span class="o">=</span><span class="s2">"school_country"</span><span class="p">,</span>
+        <span class="n">chained_model_field</span><span class="o">=</span><span class="s2">"country"</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s2">"The school's province."</span>
+    <span class="p">)</span>
+    <span class="n">school_city</span> <span class="o">=</span> <span class="n">ChainedForeignKey</span><span class="p">(</span>
+        <span class="n">City</span><span class="p">,</span>
+        <span class="n">chained_field</span><span class="o">=</span><span class="s1">'school_province'</span><span class="p">,</span>
+        <span class="n">chained_model_field</span><span class="o">=</span><span class="s1">'region'</span><span class="p">,</span>
+        <span class="n">show_all</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s2">"The school's city."</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="n">slugify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">school_name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">School</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">school_name</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'school_country'</span><span class="p">,</span> <span class="s1">'school_province'</span><span class="p">,</span> <span class="s1">'school_city'</span><span class="p">,</span> <span class="s1">'school_name'</span><span class="p">)</span>
+</pre>
+
+
+<p>And there you have it. A Django model that relies upon chained selections of geographic data that have been auto-populated to your database.</p>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul class="pager hidden-print">

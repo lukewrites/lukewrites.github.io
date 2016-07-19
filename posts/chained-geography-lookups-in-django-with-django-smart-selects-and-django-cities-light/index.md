@@ -249,4 +249,39 @@ Our existing models are nice, but I want to be able to link to views for each of
 ```
 
 ##Smart Selects
-The last thing we need to do is write code to 
+The last thing we need to do is write our models incorporating the `ChainedForeignKey` that `django-smart-selects` provides. Keep in mind that the `chained_field` is the name in _your_ model, while the `chained_model_field` is the name in your _database_. My names aren't the same since I used `django-cities-light` to populate the db.
+
+```python
+
+# models.py
+class School(models.Model):
+
+    school_name = models.CharField(blank=False, max_length=200, unique=True)
+    slug = models.SlugField(unique=True)
+    school_country = models.ForeignKey(Country)
+    school_province = ChainedForeignKey(
+        Region,
+        chained_field="school_country",
+        chained_model_field="country",
+        help_text="The school's province."
+    )
+    school_city = ChainedForeignKey(
+        City,
+        chained_field='school_province',
+        chained_model_field='region',
+        show_all=False,
+        help_text="The school's city."
+    )
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.school_name)
+        super(School, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.school_name
+
+    class Meta:
+        ordering = ('school_country', 'school_province', 'school_city', 'school_name')
+```
+
+And there you have it. A Django model that relies upon chained selections of geographic data that have been auto-populated to your database.
