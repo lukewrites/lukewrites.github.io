@@ -6,115 +6,115 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
-  <loc>https://lukewrites.github.io/</loc>
+  <loc>https://lukewrites.com/</loc>
+  <lastmod>2016-07-19T04:29:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.com/2016/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/2016/</loc>
+  <loc>https://lukewrites.com/archive.html</loc>
+  <lastmod>2016-07-19T04:29:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.com/categories/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/archive.html</loc>
-  <lastmod>2016-07-19T00:13:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/categories/</loc>
+  <loc>https://lukewrites.com/categories/cat_algorithms/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/categories/cat_algorithms/</loc>
+  <loc>https://lukewrites.com/categories/cat_django/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/categories/cat_django/</loc>
+  <loc>https://lukewrites.com/galleries/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/galleries/</loc>
+  <loc>https://lukewrites.com/galleries/demo/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/galleries/demo/</loc>
+  <loc>https://lukewrites.com/listings/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/listings/</loc>
+  <loc>https://lukewrites.com/listings/__pycache__/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/listings/__pycache__/</loc>
+  <loc>https://lukewrites.com/listings/hello.py.html</loc>
+  <lastmod>2016-07-19T04:29:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.com/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/listings/hello.py.html</loc>
-  <lastmod>2016-07-19T00:13:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/</loc>
+  <loc>https://lukewrites.com/posts/greedy-algorithms-making-change/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/posts/greedy-algorithms-making-change/</loc>
+  <loc>https://lukewrites.com/stories/about-nikola/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/about-nikola/</loc>
+  <loc>https://lukewrites.com/stories/bootstrap-demo/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/bootstrap-demo/</loc>
+  <loc>https://lukewrites.com/stories/charts/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/charts/</loc>
+  <loc>https://lukewrites.com/stories/creating-a-theme/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/creating-a-theme/</loc>
+  <loc>https://lukewrites.com/stories/dr-nikolas-vendetta/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/dr-nikolas-vendetta/</loc>
+  <loc>https://lukewrites.com/stories/extending/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/extending/</loc>
+  <loc>https://lukewrites.com/stories/handbook/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/handbook/</loc>
+  <loc>https://lukewrites.com/stories/internals/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/internals/</loc>
+  <loc>https://lukewrites.com/stories/listings-demo/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/listings-demo/</loc>
+  <loc>https://lukewrites.com/stories/path-handlers/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/path-handlers/</loc>
+  <loc>https://lukewrites.com/stories/quickref/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/quickref/</loc>
+  <loc>https://lukewrites.com/stories/quickstart/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/quickstart/</loc>
+  <loc>https://lukewrites.com/stories/slides-demo/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/slides-demo/</loc>
+  <loc>https://lukewrites.com/stories/social_buttons/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
  <url>
-  <loc>https://lukewrites.github.io/stories/social_buttons/</loc>
-  <lastmod>2016-07-19T00:12:00Z</lastmod>
- </url>
- <url>
-  <loc>https://lukewrites.github.io/stories/theming/</loc>
+  <loc>https://lukewrites.com/stories/theming/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
  </url>
 </urlset>
