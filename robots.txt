@@ -1,4 +1,4 @@
-Sitemap: http://lukewrites.github.io/sitemapindex.xml
+Sitemap: https://lukewrites.github.io/sitemapindex.xml
 
 User-Agent: *
 Host: lukewrites.github.io
