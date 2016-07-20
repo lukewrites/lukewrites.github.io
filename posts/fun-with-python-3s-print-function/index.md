@@ -1,11 +1,11 @@
 <!--
-.. title: Fun with Python 3's `print()` function
+.. title: Fun with Python 3's print function
 .. slug: fun-with-python-3s-print-function
 .. date: 2016-07-20 10:17:23 UTC-07:00
 .. tags:
 .. category: Python
 .. link:
-.. description: Python3's print() function can do more than just output text.
+.. description: Python3's `print` function can do more than just output text.
 .. type: text
 -->
 
