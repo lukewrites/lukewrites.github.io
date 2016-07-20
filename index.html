@@ -10,7 +10,7 @@
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://lukewrites.github.io/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/greedy-algorithms-making-change/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/fun-with-python-3s-print-function/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -60,7 +60,39 @@
 
     
 <div class="postindex">
-    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/greedy-algorithms-making-change/" class="u-url">Greedy Algorithms: Making Change</a></h1>
+    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/fun-with-python-3s-print-function/" class="u-url">Fun with Python 3's `print()` function</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">
+                Luke Petschauer
+            </span></p>
+            <p class="dateline"><a href="posts/fun-with-python-3s-print-function/" rel="bookmark"><time class="published dt-published" datetime="2016-07-20T10:17:23-07:00" title="2016-07-20 10:17">2016-07-20 10:17</time></a></p>
+        </div>
+    </header><div class="e-content entry-content">
+    <div>
+<h2>Fun with the <code>print</code> function</h2>
+<p>Most Pythonistas learn early on that the <code>print</code> function can evaluate statements:</p>
+<pre class="code literal-block"><span></span><span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">False</span>
+<span class="k">print</span><span class="p">(</span><span class="mi">7</span><span class="o">+</span><span class="mi">5</span><span class="o">==</span><span class="mi">12</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">True</span>
+</pre>
+
+
+<p>However, I didn't know that <code>print</code> can return different strings based upon whether or not the following statement is true or false. The format is:</p>
+<pre class="code literal-block"><span></span><span class="k">print</span><span class="p">([</span><span class="s1">'output for False'</span><span class="p">,</span> <span class="s1">'output for True'</span><span class="p">][</span><span class="s1">'statement_to_evaluate'</span><span class="p">])</span>
+</pre>
+
+
+<p>For example:</p>
+<pre class="code literal-block"><span></span><span class="k">print</span><span class="p">([</span><span class="s1">'no'</span><span class="p">,</span> <span class="s1">'yes'</span><span class="p">][</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">no</span>
+
+<span class="k">print</span><span class="p">([</span><span class="s1">'Go back to math class'</span><span class="p">,</span> <span class="s1">'You know math!'</span><span class="p">][</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">12</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">You</span> <span class="n">know</span> <span class="n">math</span><span class="err">!</span>
+</pre>
+</div>
+    </div>
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/greedy-algorithms-making-change/" class="u-url">Greedy Algorithms: Making Change</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn">
                 Luke Petschauer

@@ -15,11 +15,11 @@
  </url>
  <url>
   <loc>https://lukewrites.github.io/archive.html</loc>
-  <lastmod>2016-07-19T04:31:00Z</lastmod>
+  <lastmod>2016-07-20T17:24:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/</loc>
-  <lastmod>2016-07-19T00:12:00Z</lastmod>
+  <lastmod>2016-07-20T17:24:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/cat_algorithms/</loc>
@@ -28,6 +28,10 @@
  <url>
   <loc>https://lukewrites.github.io/categories/cat_django/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.github.io/categories/cat_python/</loc>
+  <lastmod>2016-07-20T17:24:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/galleries/</loc>
@@ -52,6 +56,10 @@
  <url>
   <loc>https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/</loc>
   <lastmod>2016-07-19T00:12:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.github.io/posts/fun-with-python-3s-print-function/</loc>
+  <lastmod>2016-07-20T17:24:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/greedy-algorithms-making-change/</loc>
