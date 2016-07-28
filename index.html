@@ -10,7 +10,7 @@
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://lukewrites.github.io/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/fun-with-python-3s-print-function/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/rounding-decimals-in-python-or-why-doesnt-5-round-to-1/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -60,7 +60,43 @@
 
     
 <div class="postindex">
-    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/fun-with-python-3s-print-function/" class="u-url">Fun with Python 3's print function</a></h1>
+    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/rounding-decimals-in-python-or-why-doesnt-5-round-to-1/" class="u-url">Rounding decimals in Python (or: Why doesn't .5 round to 1?)</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">
+                Luke Petschauer
+            </span></p>
+            <p class="dateline"><a href="posts/rounding-decimals-in-python-or-why-doesnt-5-round-to-1/" rel="bookmark"><time class="published dt-published" datetime="2016-07-28T11:37:30-07:00" title="2016-07-28 11:37">2016-07-28 11:37</time></a></p>
+        </div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>Doing my morning Hacker Rank puzzle this morning, I discovered Python doesn't round numbers ending in .5 the way I'd expect:</p>
+<pre class="code literal-block"><span></span><span class="nb">int</span><span class="p">(</span><span class="mf">12.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">12</span>
+<span class="nb">int</span><span class="p">(</span><span class="mf">13.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">14</span>
+<span class="nb">round</span><span class="p">(</span><span class="mf">12.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">12</span>
+<span class="nb">round</span><span class="p">(</span><span class="mf">13.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">14</span>
+</pre>
+
+
+<p><banging head against the wall gif goes here></banging></p>
+<p>As always, <a href="http://stackoverflow.com/a/10093820/3389827">Stack Overflow had the answer</a>: Python rounds .5 down <em>sometimes</em> because of <a href="https://en.wikipedia.org/wiki/Rounding#Round_half_to_even">Banker's Rounding</a>, also known by the much more informative name "Round Half To Even". Python will round <code>.5</code> numbers to the nearest even whole.</p>
+<p>In the problem I was solving (giving a rounded total cost), this didn't work, so I had to use <code>decimal.Decimal</code>'s <code>quantize</code> method to round up.</p>
+</div>
+    </div>
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/the-difference-between-listsort-and-sortedlist-in-python-3/" class="u-url">The difference between list.sort and sorted(list) in Python 3</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">
+                Luke Petschauer
+            </span></p>
+            <p class="dateline"><a href="posts/the-difference-between-listsort-and-sortedlist-in-python-3/" rel="bookmark"><time class="published dt-published" datetime="2016-07-20T21:08:50-07:00" title="2016-07-20 21:08">2016-07-20 21:08</time></a></p>
+        </div>
+    </header><div class="e-content entry-content">
+    <p>Thanks to <a href="http://stackoverflow.com/a/9320799/3389827">DSM's excellent SO post</a></p>
+    </div>
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/fun-with-python-3s-print-function/" class="u-url">Fun with Python 3's print function</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn">
                 Luke Petschauer
