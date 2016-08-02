@@ -1,0 +1,27 @@
+<p>Doing my morning Hacker Rank puzzle this morning, I discovered Python 3 doesn't round numbers ending in .5 the way I'd expect:</p>
+<pre class="code literal-block"><span></span><span class="nb">int</span><span class="p">(</span><span class="mf">12.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">12</span>
+<span class="nb">int</span><span class="p">(</span><span class="mf">13.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">14</span>
+<span class="nb">round</span><span class="p">(</span><span class="mf">12.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">12</span>
+<span class="nb">round</span><span class="p">(</span><span class="mf">13.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">14</span>
+</pre>
+
+
+<p><banging head against the wall gif goes here></p>
+<p>As always, <a href="http://stackoverflow.com/a/10093820/3389827">Stack Overflow had the answer</a>: Python rounds .5 down <em>sometimes</em> because of <a href="https://en.wikipedia.org/wiki/Rounding#Round_half_to_even">Banker's Rounding</a>, also known by the much more informative name "Round Half To Even". Python will round <code>.5</code> numbers to the nearest even whole.</p>
+<p>In the problem I was solving (giving a rounded total cost of a meal), this didn't work, so I had to use <code>decimal.Decimal</code>'s <code>quantize</code> method to round up:</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+
+<span class="n">mc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>  <span class="c1"># these unpythonic variable names came from HackerRank</span>
+<span class="n">tp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">tax</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">totalCost</span><span class="p">(</span><span class="n">mc</span><span class="p">,</span> <span class="n">tp</span><span class="p">,</span> <span class="n">tax</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">mc</span> <span class="o">+</span> <span class="p">(</span><span class="n">tp</span> <span class="o">/</span> <span class="mi">100</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">mc</span><span class="p">))</span> <span class="o">+</span> <span class="p">((</span><span class="n">tax</span> <span class="o">/</span> <span class="mi">100</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">mc</span><span class="p">))))</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The total meal cost is {} dollars.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total</span><span class="p">))</span>
+
+<span class="n">totalCost</span><span class="p">(</span><span class="n">mc</span><span class="p">,</span> <span class="n">tp</span><span class="p">,</span> <span class="n">tax</span><span class="p">)</span>
+</pre>

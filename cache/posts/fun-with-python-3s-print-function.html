@@ -1,0 +1,21 @@
+<h1>Fun with the <code>print</code> function</h1>
+<p>Most Pythonistas learn early on that the <code>print</code> function can evaluate statements:</p>
+<pre class="code literal-block"><span></span><span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">False</span>
+<span class="k">print</span><span class="p">(</span><span class="mi">7</span><span class="o">+</span><span class="mi">5</span><span class="o">==</span><span class="mi">12</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">True</span>
+</pre>
+
+
+<p>However, I didn't know that <code>print</code> can return different strings based upon whether or not the following statement is true or false. The format is:</p>
+<pre class="code literal-block"><span></span><span class="k">print</span><span class="p">([</span><span class="s1">&#39;output for False&#39;</span><span class="p">,</span> <span class="s1">&#39;output for True&#39;</span><span class="p">][</span><span class="s1">&#39;statement_to_evaluate&#39;</span><span class="p">])</span>
+</pre>
+
+
+<p>For example:</p>
+<pre class="code literal-block"><span></span><span class="k">print</span><span class="p">([</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">][</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">no</span>
+
+<span class="k">print</span><span class="p">([</span><span class="s1">&#39;Go back to math class&#39;</span><span class="p">,</span> <span class="s1">&#39;You know math!&#39;</span><span class="p">][</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">12</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">You</span> <span class="n">know</span> <span class="n">math</span><span class="err">!</span>
+</pre>
