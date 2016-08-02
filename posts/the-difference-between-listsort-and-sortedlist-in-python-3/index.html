@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <base href="https://lukewrites.github.io/posts/the-difference-between-listsort-and-sortedlist-in-python-3/">
-<meta name="description" content="Why does python have a li.sort() method and a sorted(li) function? They're for different uses.">
+<meta name="description" content="Why does python have a li.sort() method and a sorted(li) function? They have different uses.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The difference between list.sort and sorted(list) in Python 3 | Luke writes about coding (mostly)</title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="https://lukewrites.github.io/posts/the-difference-between-listsort-and-sortedlist-in-python-3/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="description" itemprop="description" content="Why does python have a li.sort() method and a sorted(li) function? They're for different uses.">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="description" itemprop="description" content="Why does python have a li.sort() method and a sorted(li) function? They have different uses.">
 <meta name="author" content="Luke Petschauer">
 <link rel="prev" href="../fun-with-python-3s-print-function/" title="Fun with Python 3's print function" type="text/html">
 <link rel="next" href="../rounding-decimals-in-python-or-why-doesnt-5-round-to-1/" title="Rounding decimals in Python (or: Why doesn't .5 round to 1?)" type="text/html">
 <meta property="og:site_name" content="Luke writes about coding (mostly)">
 <meta property="og:title" content="The difference between list.sort and sorted(list) in Python 3">
 <meta property="og:url" content="https://lukewrites.github.io/posts/the-difference-between-listsort-and-sortedlist-in-python-3/">
-<meta property="og:description" content="Why does python have a li.sort() method and a sorted(li) function? They're for different uses.">
+<meta property="og:description" content="Why does python have a li.sort() method and a sorted(li) function? They have different uses.">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2016-07-20T21:08:50-07:00">
 </head>
@@ -82,12 +82,44 @@
             
         <p class="sourceline"><a href="index.md" id="sourcelink">Source</a></p>
 
-                <meta name="description" itemprop="description" content="Why does python have a li.sort() method and a sorted(li) function? They're for different uses.">
+                <meta name="description" itemprop="description" content="Why does python have a li.sort() method and a sorted(li) function? They have different uses.">
 </div>
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <p>Thanks to <a href="http://stackoverflow.com/a/9320799/3389827">DSM's excellent SO post</a></p>
+    <div>
+<p>The other week for my <a href="http://coursera.org/learn/algorithmic-toolbox/">algorithms class</a> I needed to find the minimum dot product. </p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="nf">min_dot_product</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre>
+
+
+<p>Python has two different ways of sorting a list: <code>list.sort([reverse=False])</code> and <code>sorted(list[, reverse=False])</code>. Why a method and a function to do the same thing? Let's look:</p>
+<pre class="code literal-block"><span></span><span class="n">li</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">li</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">li</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">li</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">li</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre>
+
+
+<p><code>list.sort()</code> sorts the list and <strong>returns None</strong>.</p>
+<p>On the other hand, <code>sorted(list)</code> sorts and <strong>returns the list</strong></p>
+<pre class="code literal-block"><span></span><span class="n">li</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">li</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre>
+
+
+<p>I've contributed the above to <a href="http://stackoverflow.com/documentation/python/209/list/2035/list-methods-and-supported-operators#t=201607281859094153184">SO's Python documentation on lists and list methods</a>.</p>
+</div>
     </div>
     <aside class="postpromonav"><nav><ul class="pager hidden-print">
 <li class="previous">
