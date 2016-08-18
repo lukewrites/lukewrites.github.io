@@ -15,7 +15,7 @@
  </url>
  <url>
   <loc>https://lukewrites.github.io/archive.html</loc>
-  <lastmod>2016-08-02T19:21:00Z</lastmod>
+  <lastmod>2016-08-18T18:54:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/</loc>
@@ -51,7 +51,7 @@
  </url>
  <url>
   <loc>https://lukewrites.github.io/listings/hello.py.html</loc>
-  <lastmod>2016-08-02T19:21:00Z</lastmod>
+  <lastmod>2016-08-18T18:54:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/</loc>
@@ -72,6 +72,10 @@
  <url>
   <loc>https://lukewrites.github.io/posts/the-difference-between-listsort-and-sortedlist-in-python-3/</loc>
   <lastmod>2016-08-02T19:21:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.github.io/posts/thoughts-after-my-first-codjo/</loc>
+  <lastmod>2016-08-18T18:54:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/stories/about-nikola/</loc>
