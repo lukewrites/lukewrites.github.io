@@ -41,3 +41,5 @@ def totalCost(mc, tp, tax):
 
 totalCost(mc, tp, tax)
 ```
+
+I'm over 80 characters in that line, so there's the potential for refactoring.
