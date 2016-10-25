@@ -10,7 +10,7 @@
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://lukewrites.github.io/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/thoughts-after-my-first-codjo/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/finding-a-majority-element-in-python-3/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -60,7 +60,28 @@
 
     
 <div class="postindex">
-    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/thoughts-after-my-first-codjo/" class="u-url">Thoughts after my first codjo</a></h1>
+    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/finding-a-majority-element-in-python-3/" class="u-url">Finding a Majority Element in Python 3</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">
+                Luke Petschauer
+            </span></p>
+            <p class="dateline"><a href="posts/finding-a-majority-element-in-python-3/" rel="bookmark"><time class="published dt-published" datetime="2016-10-24T23:05:17-07:00" title="2016-10-24 23:05">2016-10-24 23:05</time></a></p>
+        </div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>Doing more data structure work; asked to find if an array of numbers has a <em>majority element</em> – that is, an element that appears more than 50% of the time in the array.</p>
+<p>My assignment is to write a greedy algorithm to do this…but wouldn't it be easier to just use the <code>collections</code> module?</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="k">def</span> <span class="nf">majority_element_finder</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Counter</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+</pre>
+
+
+<p>The <code>most_common([n])</code> returns a list of tuples of the elements in <code>numbers</code> along with the number of times each appears. This is listed in decreasing order. We want to take the first element's (<code>[0]</code>) count ('[1]'), and see if it's greater than half the length of the list.</p>
+</div>
+    </div>
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/thoughts-after-my-first-codjo/" class="u-url">Thoughts after my first codjo</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn">
                 Luke Petschauer

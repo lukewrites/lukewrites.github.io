@@ -15,7 +15,7 @@
  </url>
  <url>
   <loc>https://lukewrites.github.io/archive.html</loc>
-  <lastmod>2016-08-18T18:54:00Z</lastmod>
+  <lastmod>2016-10-25T06:13:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/</loc>
@@ -56,6 +56,10 @@
  <url>
   <loc>https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/</loc>
   <lastmod>2016-08-02T19:21:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.github.io/posts/finding-a-majority-element-in-python-3/</loc>
+  <lastmod>2016-10-25T06:13:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/fun-with-python-3s-print-function/</loc>
