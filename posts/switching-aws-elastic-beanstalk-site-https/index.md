@@ -5,7 +5,7 @@
 .. tags:
 .. category:
 .. link:
-.. description: How to use AWS to get a free SSL certificate and have your Elastic Beanstalk site automatically serve the secure site.
+.. description: How to use AWS to get a free SSL certificate and have your Elastic Beanstalk site redirect all traffic to https.
 .. type: text
 -->
 
