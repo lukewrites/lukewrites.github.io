@@ -23,11 +23,19 @@
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/</loc>
-  <lastmod>2016-08-02T19:21:00Z</lastmod>
+  <lastmod>2017-08-31T17:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/cat_algorithms/</loc>
   <lastmod>2016-08-02T19:21:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.github.io/categories/cat_aws-django/</loc>
+  <lastmod>2017-08-31T17:48:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.github.io/categories/cat_aws/</loc>
+  <lastmod>2017-08-31T17:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/cat_django/</loc>

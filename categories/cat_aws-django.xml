@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Luke writes about coding (mostly) (Posts about AWS, Django)</title><link>https://lukewrites.github.io/</link><description></description><atom:link href="https://lukewrites.github.io/categories/cat_aws-django.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Thu, 31 Aug 2017 17:48:16 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Switching your AWS Elastic Beanstalk site to https</title><link>https://lukewrites.github.io/posts/switching-aws-elastic-beanstalk-site-https/</link><dc:creator>Luke Petschauer</dc:creator><description>&lt;div&gt;&lt;h3&gt;Why does &lt;code&gt;https&lt;/code&gt; matter?&lt;/h3&gt;
+&lt;p&gt;If you have a website that involves any personal information (including passwords), you should be securing your site with https. Even if you're not interested in your users' data, there are pragmatic reasons to use http; Google's going to start labeling non-https domains as "unsecured". So, avoid that label and use https!&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://letsencrypt.org/"&gt;Let's Encrypt!&lt;/a&gt; was one of the first to offer free SSL certificates to anyone; if you host on Amazon Web Services via Elastic Beanstalk you can't easily install one of their certificates, but you still can install a free certificate.&lt;/p&gt;
+&lt;p&gt;Below I'll show you how to: get a free SSL certificate from &lt;a href="https://aws.amazon.com/certificate-manager/"&gt;AWS Certificate Manager&lt;/a&gt;, connect that certificate to your site hosted on &lt;a href="https://aws.amazon.com/elasticbeanstalk/"&gt;AWS Elastic Beanstalk&lt;/a&gt;, and automatically route regular, unsecured &lt;code&gt;http&lt;/code&gt; traffic to your new &lt;code&gt;https&lt;/code&gt; address(es).&lt;/p&gt;
+&lt;p&gt;The steps we will go through are as follows:
+ 1. Get an SSL certificate for your site
+ 2. Modify one of the &lt;code&gt;.config&lt;/code&gt; files in your &lt;code&gt;.ebextensions&lt;/code&gt; folder
+ 3. Update your settings to switch to https
+ 4. Push your changes to master&lt;/p&gt;
+&lt;h4&gt;1. Get an SSL certificate for your site&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://aws.amazon.com/certificate-manager/"&gt;AWS Certificate Manager&lt;/a&gt; issues free certificates, and is straightforward to use. You (a) specify what domain (&lt;em&gt;and subdomains&lt;/em&gt;) you want a certificate for, (b) submit your request, and then (c) click through a confirmation link that will be emailed to you.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IMPORTANT&lt;/strong&gt; Keep in mind that &lt;code&gt;*.blah.com&lt;/code&gt; will resolve to &lt;code&gt;https://blog.blah.com&lt;/code&gt; and &lt;code&gt;https://www.blah.com&lt;/code&gt;, but not &lt;code&gt;https://blah.com&lt;/code&gt;, so after entering your domain name, be sure to click on "Add another name to this certificate" and include your plain domain name (e.g. &lt;code&gt;blah.com&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img alt="request your ssl cert" src="https://lukewrites.github.io/images/request_ssl_cert.png"&gt;&lt;/p&gt;
+&lt;p&gt;After clicking on &lt;em&gt;Review and Request&lt;/em&gt; you will come to another page where you review the domain name for which you've requested a certificate and submit your request. AWS sends an email to the admin email address for your domain. The message contains a link that lets you verify that you do indeed want the certificate issued. Once you've verified it, it's time to make changes to some code.&lt;/p&gt;
+&lt;h4&gt;2. Update one of your &lt;code&gt;.config&lt;/code&gt; files to redirect all traffic to SSL&lt;/h4&gt;
+&lt;p&gt;Elastic Beanstalk deployments are customized by &lt;code&gt;.config&lt;/code&gt; files in the &lt;code&gt;.ebextensions&lt;/code&gt; folder in your project's root directory. To deploy my site I followed &lt;a href="https://realpython.com/blog/python/deploying-a-django-app-and-postgresql-to-aws-elastic-beanstalk/"&gt;RealPython's excellent guide to deployment on Elastic Beanstalk&lt;/a&gt;, which left me with two files in my &lt;code&gt;.ebextensions&lt;/code&gt; folder: &lt;code&gt;01_packages.config&lt;/code&gt; and &lt;code&gt;02_python.config&lt;/code&gt;. Without making changes to your &lt;code&gt;.config&lt;/code&gt;, your site will not redirect &lt;code&gt;http&lt;/code&gt; connections to &lt;code&gt;https&lt;/code&gt;; instead, it will allow both types. Thanks to &lt;a href="https://stackoverflow.com/questions/14693852/how-to-force-https-on-elastic-beanstalk/38751749#38751749"&gt;this StackOverflow post&lt;/a&gt;, we can copy and paste code into one of these &lt;code&gt;.config&lt;/code&gt; files to redirect &lt;code&gt;http&lt;/code&gt; traffic to &lt;code&gt;https&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;My original &lt;code&gt;01_packages.config&lt;/code&gt; looked like this:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;packages&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+  &lt;span class="n"&gt;yum&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[]&lt;/span&gt;
+    &lt;span class="n"&gt;postgresql93&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;devel&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[]&lt;/span&gt;
+    &lt;span class="n"&gt;libjpeg&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;turbo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;devel&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;I edited &lt;code&gt;01_packages.config&lt;/code&gt; to look like this:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nx"&gt;packages&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nx"&gt;yum&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="nx"&gt;git&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;
+    postgresql93-devel: &lt;span class="cp"&gt;[]&lt;/span&gt;
+    libjpeg-turbo-devel: &lt;span class="cp"&gt;[]&lt;/span&gt;
+
+files:
+    "/etc/httpd/conf.d/ssl_rewrite.conf":
+        mode: "000644"
+        owner: root
+        group: root
+        content: |
+            RewriteEngine On
+            &lt;span class="nt"&gt;&amp;lt;If&lt;/span&gt; &lt;span class="err"&gt;"-n&lt;/span&gt; &lt;span class="err"&gt;'%{HTTP:X-Forwarded-Proto}'&lt;/span&gt; &lt;span class="err"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="err"&gt;%{HTTP:X-Forwarded-Proto}&lt;/span&gt; &lt;span class="err"&gt;!=&lt;/span&gt; &lt;span class="err"&gt;'https'"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+            RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;R&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nx"&gt;L&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;lt;/If&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Now commit your changes, but don't &lt;code&gt;eb deploy&lt;/code&gt; just yet...you haven't configured your load balancer to accept &lt;code&gt;https&lt;/code&gt; traffic!&lt;/p&gt;
+&lt;h4&gt;3. Update your settings&lt;/h4&gt;
+&lt;p&gt;Now we need to turn on &lt;code&gt;https&lt;/code&gt; listening. If we don't do this, your site won't know that it should be looking for traffic to SSL endpoints.&lt;/p&gt;
+&lt;p&gt;In your Elastic Beanstalk application's AWS console, open the &lt;strong&gt;Confirguration&lt;/strong&gt; window, scroll down to &lt;em&gt;Network Tier&lt;/em&gt;, and open the &lt;em&gt;Load Balancing&lt;/em&gt; settings. You'll see something like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Elastic Beanstalk settings default" src="https://lukewrites.github.io/images/all_off.png"&gt;&lt;/p&gt;
+&lt;p&gt;Under the &lt;strong&gt;Load Balancer&lt;/strong&gt; section, change the &lt;em&gt;Secure Listener Port&lt;/em&gt; from &lt;code&gt;Off&lt;/code&gt; to &lt;code&gt;443&lt;/code&gt;, and select your &lt;em&gt;SSL Certificate ID&lt;/em&gt;. It should look like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Elastic Beanstalk settings changed" src="https://lukewrites.github.io/images/all_on.png"&gt;&lt;/p&gt;
+&lt;p&gt;It's important that you leave the regular &lt;em&gt;Listener Port&lt;/em&gt; on. If you turn in off, users &lt;strong&gt;must&lt;/strong&gt; type in &lt;code&gt;https://&lt;/code&gt; before your URL to get to your site. So, don't touch those options.&lt;/p&gt;
+&lt;h4&gt;4. Deploy your updated code &amp;amp; bask in your secured connection&lt;/h4&gt;
+&lt;p&gt;Now, hop over to your terminal window and with a quick &lt;code&gt;eb deploy&lt;/code&gt; you will push your changes.&lt;/p&gt;
+&lt;h4&gt;Enjoy&lt;/h4&gt;
+&lt;p&gt;That's it. You've now got a site that's &lt;code&gt;https&lt;/code&gt; by default and didn't cost you a penny more. Got suggestions on how to improve this process? Hit me up &lt;a href="https://twitter.com/lukewrites/"&gt;on twitter&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;</description><guid>https://lukewrites.github.io/posts/switching-aws-elastic-beanstalk-site-https/</guid><pubDate>Tue, 29 Aug 2017 19:36:24 GMT</pubDate></item></channel></rss>

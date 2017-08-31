@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Luke writes about coding (mostly) (Posts about AWS)</title><link>https://lukewrites.github.io/</link><description></description><atom:link href="https://lukewrites.github.io/categories/cat_aws.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Thu, 31 Aug 2017 17:48:16 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>AWS Lambda TypeError - "x() takes no arguments (2 given)"</title><link>https://lukewrites.github.io/posts/aws-lambda-typeerror-x-takes-no-arguments-2-given/</link><dc:creator>Luke Petschauer</dc:creator><description>&lt;div&gt;&lt;p&gt;I guess I didn't read the documentation thoroughly enough. (Actually, I hadn't read it at all.)&lt;/p&gt;
+&lt;p&gt;I had some wonderful code that worked on my local machine. I was excited to see it up and running on AWS Lambda (especially since Lambda is free...) but when I tried to run the script, it constantly threw the following error on AWS Lambda:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nt"&gt;"stackTrace"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;
+      &lt;span class="s2"&gt;"/var/runtime/awslambda/bootstrap.py"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="mi"&gt;246&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s2"&gt;"handle_event_request"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s2"&gt;"result = request_handler(json_input, context)"&lt;/span&gt;
+    &lt;span class="p"&gt;]&lt;/span&gt;
+  &lt;span class="p"&gt;],&lt;/span&gt;
+  &lt;span class="nt"&gt;"errorType"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"TypeError"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="nt"&gt;"errorMessage"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"tweeter() takes no arguments (2 given)"&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;What could it mean?&lt;/p&gt;
+&lt;p&gt;When you deploy a Python script to Lambda, you need to change your script's main function (the &lt;a href="https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model-handler-types.html"&gt;&lt;code&gt;_handler_&lt;/code&gt;&lt;/a&gt;, in AWS-speak) to accept the parameters &lt;code&gt;(event, context)&lt;/code&gt;. These parameters pass in event data and runtime information to the function.&lt;/p&gt;
+&lt;p&gt;Problem solved.&lt;/p&gt;&lt;/div&gt;</description><guid>https://lukewrites.github.io/posts/aws-lambda-typeerror-x-takes-no-arguments-2-given/</guid><pubDate>Mon, 22 May 2017 13:31:05 GMT</pubDate></item></channel></rss>

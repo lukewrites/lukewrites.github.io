@@ -3,7 +3,7 @@
 .. slug: aws-lambda-typeerror-x-takes-no-arguments-2-given
 .. date: 2017-05-22 06:31:05 UTC-07:00
 .. tags:
-.. category: Django
+.. category: AWS
 .. link:
 .. description: What do you do when you upload a working script to AWS Lambda and get a TypeError: x() takes no arguments (2 given)?
 .. type: text

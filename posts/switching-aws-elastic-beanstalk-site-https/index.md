@@ -3,7 +3,7 @@
 .. slug: switching-aws-elastic-beanstalk-site-https
 .. date: 2017-08-29 12:36:24 UTC-07:00
 .. tags:
-.. category:
+.. category: AWS, Django
 .. link:
 .. description: How to use AWS to get a free SSL certificate and have your Elastic Beanstalk site redirect all traffic to https.
 .. type: text
