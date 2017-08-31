@@ -9,9 +9,9 @@
 .. type: text
 -->
 
-I guess I didn't read the documentation thoroughly enough.
+I guess I didn't read the documentation thoroughly enough. (Actually, I hadn't read it at all.)
 
-I had some wonderful code that worked on my local machine but constantly threw the following error on AWS Lambda:
+I had some wonderful code that worked on my local machine. I was excited to see it up and running on AWS Lambda (especially since Lambda is free...) but when I tried to run the script, it constantly threw the following error on AWS Lambda:
 
 ```json
 {
@@ -29,3 +29,7 @@ I had some wonderful code that worked on my local machine but constantly threw t
 ```
 
 What could it mean?
+
+When you deploy a Python script to Lambda, you need to change your script's main function (the [`_handler_`](https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model-handler-types.html), in AWS-speak) to accept the parameters `(event, context)`. These parameters pass in event data and runtime information to the function.
+
+Problem solved.

@@ -141,8 +141,8 @@ files:
         </div>
     </header><div class="e-content entry-content">
     <div>
-<p>I guess I didn't read the documentation thoroughly enough.</p>
-<p>I had some wonderful code that worked on my local machine but constantly threw the following error on AWS Lambda:</p>
+<p>I guess I didn't read the documentation thoroughly enough. (Actually, I hadn't read it at all.)</p>
+<p>I had some wonderful code that worked on my local machine. I was excited to see it up and running on AWS Lambda (especially since Lambda is free...) but when I tried to run the script, it constantly threw the following error on AWS Lambda:</p>
 <pre class="code literal-block"><span class="p">{</span>
   <span class="nt">"stackTrace"</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">[</span>
@@ -159,6 +159,8 @@ files:
 
 
 <p>What could it mean?</p>
+<p>When you deploy a Python script to Lambda, you need to change your script's main function (the <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model-handler-types.html"><code>_handler_</code></a>, in AWS-speak) to accept the parameters <code>(event, context)</code>. These parameters pass in event data and runtime information to the function.</p>
+<p>Problem solved.</p>
 </div>
     </div>
     </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/finding-a-majority-element-in-python-3/" class="u-url">Finding a Majority Element in Python 3</a></h1>
