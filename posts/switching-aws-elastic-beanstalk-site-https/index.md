@@ -73,11 +73,11 @@ Now we need to turn on `https` listening. If we don't do this, your site won't k
 
 In your Elastic Beanstalk application's AWS console, open the **Confirguration** window, scroll down to _Network Tier_, and open the _Load Balancing_ settings. You'll see something like this:
 
-!(Elastic Beanstalk settings – default)[/images/all_off.png]
+!(Elastic Beanstalk settings default)[/images/all_off.png]
 
 Under the **Load Balancer** section, change the _Secure Listener Port_ from `Off` to `443`, and select your _SSL Certificate ID_. It should look like this:
 
-!(Elastic Beanstalk settings – changed)[/images/all_on.png]
+!(Elastic Beanstalk settings changed)[/images/all_on.png]
 
 It's important that you leave the regular _Listener Port_ on. If you turn in off, users **must** type in `https://` before your URL to get to your site. So, don't touch those options.
 
