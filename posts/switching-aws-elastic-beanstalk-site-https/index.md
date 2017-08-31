@@ -18,10 +18,10 @@ If you have a website that involves any personal information (including password
 Below I'll show you how to: get a free SSL certificate from [AWS Certificate Manager](https://aws.amazon.com/certificate-manager/), connect that certificate to your site hosted on [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/), and automatically route regular, unsecured `http` traffic to your new `https` address(es).
 
 The steps we will go through are as follows:
-1. Get an SSL certificate for your site
-2. Modify one of the `.config` files in your `.ebextensions` folder
-3. Update your settings to switch to https
-4. Push your changes to master
+ 1. Get an SSL certificate for your site
+ 2. Modify one of the `.config` files in your `.ebextensions` folder
+ 3. Update your settings to switch to https
+ 4. Push your changes to master
 
 ### 1. Get an SSL certificate for your site
 
@@ -73,11 +73,11 @@ Now we need to turn on `https` listening. If we don't do this, your site won't k
 
 In your Elastic Beanstalk application's AWS console, open the **Confirguration** window, scroll down to _Network Tier_, and open the _Load Balancing_ settings. You'll see something like this:
 
-!(Elastic Beanstalk settings default)[/images/all_off.png]
+![Elastic Beanstalk settings default](/images/all_off.png)
 
 Under the **Load Balancer** section, change the _Secure Listener Port_ from `Off` to `443`, and select your _SSL Certificate ID_. It should look like this:
 
-!(Elastic Beanstalk settings changed)[/images/all_on.png]
+![Elastic Beanstalk settings changed](/images/all_on.png)
 
 It's important that you leave the regular _Listener Port_ on. If you turn in off, users **must** type in `https://` before your URL to get to your site. So, don't touch those options.
 

@@ -96,10 +96,10 @@
 <p><a href="https://letsencrypt.org/">Let's Encrypt!</a> was one of the first to offer free SSL certificates to anyone; if you host on Amazon Web Services via Elastic Beanstalk you can't easily install one of their certificates, but you still can install a free certificate.</p>
 <p>Below I'll show you how to: get a free SSL certificate from <a href="https://aws.amazon.com/certificate-manager/">AWS Certificate Manager</a>, connect that certificate to your site hosted on <a href="https://aws.amazon.com/elasticbeanstalk/">AWS Elastic Beanstalk</a>, and automatically route regular, unsecured <code>http</code> traffic to your new <code>https</code> address(es).</p>
 <p>The steps we will go through are as follows:
-1. Get an SSL certificate for your site
-2. Modify one of the <code>.config</code> files in your <code>.ebextensions</code> folder
-3. Update your settings to switch to https
-4. Push your changes to master</p>
+ 1. Get an SSL certificate for your site
+ 2. Modify one of the <code>.config</code> files in your <code>.ebextensions</code> folder
+ 3. Update your settings to switch to https
+ 4. Push your changes to master</p>
 <h4>1. Get an SSL certificate for your site</h4>
 <p><a href="https://aws.amazon.com/certificate-manager/">AWS Certificate Manager</a> issues free certificates, and is straightforward to use. You (a) specify what domain (<em>and subdomains</em>) you want a certificate for, (b) submit your request, and then (c) click through a confirmation link that will be emailed to you.</p>
 <p><strong>IMPORTANT</strong> Keep in mind that <code>*.blah.com</code> will resolve to <code>https://blog.blah.com</code> and <code>https://www.blah.com</code>, but not <code>https://blah.com</code>, so after entering your domain name, be sure to click on "Add another name to this certificate" and include your plain domain name (e.g. <code>blah.com</code>)</p>
@@ -140,9 +140,9 @@ files:
 <h4>3. Update your settings</h4>
 <p>Now we need to turn on <code>https</code> listening. If we don't do this, your site won't know that it should be looking for traffic to SSL endpoints.</p>
 <p>In your Elastic Beanstalk application's AWS console, open the <strong>Confirguration</strong> window, scroll down to <em>Network Tier</em>, and open the <em>Load Balancing</em> settings. You'll see something like this:</p>
-<p>!(Elastic Beanstalk settings default)[/images/all_off.png]</p>
+<p><img alt="Elastic Beanstalk settings default" src="../../images/all_off.png"></p>
 <p>Under the <strong>Load Balancer</strong> section, change the <em>Secure Listener Port</em> from <code>Off</code> to <code>443</code>, and select your <em>SSL Certificate ID</em>. It should look like this:</p>
-<p>!(Elastic Beanstalk settings changed)[/images/all_on.png]</p>
+<p><img alt="Elastic Beanstalk settings changed" src="../../images/all_on.png"></p>
 <p>It's important that you leave the regular <em>Listener Port</em> on. If you turn in off, users <strong>must</strong> type in <code>https://</code> before your URL to get to your site. So, don't touch those options.</p>
 <h4>4. Deploy your updated code &amp; bask in your secured connection</h4>
 <p>Now, hop over to your terminal window and with a quick <code>eb deploy</code> you will push your changes.</p>
