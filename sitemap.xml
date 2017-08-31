@@ -7,15 +7,19 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://lukewrites.github.io/</loc>
-  <lastmod>2016-08-02T19:21:00Z</lastmod>
+  <lastmod>2017-08-31T01:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/2016/</loc>
   <lastmod>2016-08-02T19:21:00Z</lastmod>
  </url>
  <url>
+  <loc>https://lukewrites.github.io/2017/</loc>
+  <lastmod>2017-08-31T01:33:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://lukewrites.github.io/archive.html</loc>
-  <lastmod>2016-10-25T06:13:00Z</lastmod>
+  <lastmod>2017-08-31T01:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/categories/</loc>
@@ -51,7 +55,11 @@
  </url>
  <url>
   <loc>https://lukewrites.github.io/listings/hello.py.html</loc>
-  <lastmod>2016-08-18T18:54:00Z</lastmod>
+  <lastmod>2017-08-31T01:33:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.github.io/posts/aws-lambda-typeerror-x-takes-no-arguments-2-given/</loc>
+  <lastmod>2017-08-31T01:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/chained-geography-lookups-in-django-with-django-smart-selects-and-django-cities-light/</loc>
@@ -72,6 +80,10 @@
  <url>
   <loc>https://lukewrites.github.io/posts/rounding-decimals-in-python-or-why-doesnt-5-round-to-1/</loc>
   <lastmod>2016-08-02T19:21:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://lukewrites.github.io/posts/switching-aws-elastic-beanstalk-site-https/</loc>
+  <lastmod>2017-08-31T01:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://lukewrites.github.io/posts/the-difference-between-listsort-and-sortedlist-in-python-3/</loc>
