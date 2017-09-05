@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Luke writes about coding (mostly) (Posts about AWS, Django)</title><link>https://lukewrites.github.io/</link><description></description><atom:link href="https://lukewrites.github.io/categories/cat_aws-django.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Thu, 31 Aug 2017 17:48:16 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Switching your AWS Elastic Beanstalk site to https</title><link>https://lukewrites.github.io/posts/switching-aws-elastic-beanstalk-site-https/</link><dc:creator>Luke Petschauer</dc:creator><description>&lt;div&gt;&lt;h3&gt;Why does &lt;code&gt;https&lt;/code&gt; matter?&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Luke writes about coding (mostly) (Posts about AWS, Django)</title><link>https://lukewrites.github.io/</link><description></description><atom:link href="https://lukewrites.github.io/categories/cat_aws-django.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Tue, 05 Sep 2017 23:12:37 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Switching your AWS Elastic Beanstalk site to https</title><link>https://lukewrites.github.io/posts/switching-aws-elastic-beanstalk-site-https/</link><dc:creator>Luke Petschauer</dc:creator><description>&lt;div&gt;&lt;h3&gt;Why does &lt;code&gt;https&lt;/code&gt; matter?&lt;/h3&gt;
 &lt;p&gt;If you have a website that involves any personal information (including passwords), you should be securing your site with https. Even if you're not interested in your users' data, there are pragmatic reasons to use http; Google's going to start labeling non-https domains as "unsecured". So, avoid that label and use https!&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://letsencrypt.org/"&gt;Let's Encrypt!&lt;/a&gt; was one of the first to offer free SSL certificates to anyone; if you host on Amazon Web Services via Elastic Beanstalk you can't easily install one of their certificates, but you still can install a free certificate.&lt;/p&gt;
 &lt;p&gt;Below I'll show you how to: get a free SSL certificate from &lt;a href="https://aws.amazon.com/certificate-manager/"&gt;AWS Certificate Manager&lt;/a&gt;, connect that certificate to your site hosted on &lt;a href="https://aws.amazon.com/elasticbeanstalk/"&gt;AWS Elastic Beanstalk&lt;/a&gt;, and automatically route regular, unsecured &lt;code&gt;http&lt;/code&gt; traffic to your new &lt;code&gt;https&lt;/code&gt; address(es).&lt;/p&gt;
-&lt;p&gt;The steps we will go through are as follows:
- 1. Get an SSL certificate for your site
- 2. Modify one of the &lt;code&gt;.config&lt;/code&gt; files in your &lt;code&gt;.ebextensions&lt;/code&gt; folder
- 3. Update your settings to switch to https
- 4. Push your changes to master&lt;/p&gt;
+&lt;p&gt;The steps we will go through are as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Get an SSL certificate for your site&lt;/li&gt;
+&lt;li&gt;Modify one of the &lt;code&gt;.config&lt;/code&gt; files in your &lt;code&gt;.ebextensions&lt;/code&gt; folder&lt;/li&gt;
+&lt;li&gt;Update your settings to switch to https&lt;/li&gt;
+&lt;li&gt;Push your changes to master&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h4&gt;1. Get an SSL certificate for your site&lt;/h4&gt;
 &lt;p&gt;&lt;a href="https://aws.amazon.com/certificate-manager/"&gt;AWS Certificate Manager&lt;/a&gt; issues free certificates, and is straightforward to use. You (a) specify what domain (&lt;em&gt;and subdomains&lt;/em&gt;) you want a certificate for, (b) submit your request, and then (c) click through a confirmation link that will be emailed to you.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;IMPORTANT&lt;/strong&gt; Keep in mind that &lt;code&gt;*.blah.com&lt;/code&gt; will resolve to &lt;code&gt;https://blog.blah.com&lt;/code&gt; and &lt;code&gt;https://www.blah.com&lt;/code&gt;, but not &lt;code&gt;https://blah.com&lt;/code&gt;, so after entering your domain name, be sure to click on "Add another name to this certificate" and include your plain domain name (e.g. &lt;code&gt;blah.com&lt;/code&gt;)&lt;/p&gt;
@@ -50,7 +52,7 @@ files:
 &lt;p&gt;In your Elastic Beanstalk application's AWS console, open the &lt;strong&gt;Confirguration&lt;/strong&gt; window, scroll down to &lt;em&gt;Network Tier&lt;/em&gt;, and open the &lt;em&gt;Load Balancing&lt;/em&gt; settings. You'll see something like this:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Elastic Beanstalk settings default" src="https://lukewrites.github.io/images/all_off.png"&gt;&lt;/p&gt;
 &lt;p&gt;Under the &lt;strong&gt;Load Balancer&lt;/strong&gt; section, change the &lt;em&gt;Secure Listener Port&lt;/em&gt; from &lt;code&gt;Off&lt;/code&gt; to &lt;code&gt;443&lt;/code&gt;, and select your &lt;em&gt;SSL Certificate ID&lt;/em&gt;. It should look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Elastic Beanstalk settings changed" src="https://lukewrites.github.io/images/all_on.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Elastic Beanstalk settings changed" src="https://lukewrites.github.io/images/all_set.png"&gt;&lt;/p&gt;
 &lt;p&gt;It's important that you leave the regular &lt;em&gt;Listener Port&lt;/em&gt; on. If you turn in off, users &lt;strong&gt;must&lt;/strong&gt; type in &lt;code&gt;https://&lt;/code&gt; before your URL to get to your site. So, don't touch those options.&lt;/p&gt;
 &lt;h4&gt;4. Deploy your updated code &amp;amp; bask in your secured connection&lt;/h4&gt;
 &lt;p&gt;Now, hop over to your terminal window and with a quick &lt;code&gt;eb deploy&lt;/code&gt; you will push your changes.&lt;/p&gt;
